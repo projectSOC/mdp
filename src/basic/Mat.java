@@ -61,21 +61,7 @@ public class Mat {
 		mat[col_in][row_in] = val;
 		
 	}
-	void MatShowDescribe()//describe the matrix
-	{
-		for(i = 0; i < col; i++)
-		{
-			for(j = 0 ; j < row ; j++)
-			{
-				if(mat[i][j]==1){
-					System.out.println("component "+j+" -> Virtual Machine "+i);
-				}
-				
-			}
-			
-		}
-		
-	}
+	
 
 
 }

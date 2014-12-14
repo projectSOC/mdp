@@ -5,7 +5,6 @@
 
 package Test;
 
-import basic.Component;
 import basic.Mat;
 import basic.STATE;
 import basic.STATE_NODE;
@@ -33,8 +32,6 @@ public class WorkflowMDP {
     static int dollarCost[];
     static int time[];
     static double reliability[]; //Reliability of Virtual Machine, stands for p(s|a , s')
-    static ArrayList<Component> components = new ArrayList<Component>(); //Dependency of components
-    static ArrayList<String> featureList = new ArrayList<String>();
 
     /**
      * Constructor for PolicyIterationTest.
@@ -55,10 +52,6 @@ public class WorkflowMDP {
                 if(tempString.contains("componentNumber")){
                 	String nStr = tempString.substring(tempString.indexOf("=")+1, tempString.length()).trim();
                 	n = Integer.parseInt(nStr);
-                	for(int i=0; i<n;i++){
-                		Component componenti = new Component(String.valueOf(i+1));
-                		components.add(componenti);
-                	}
                 }
                 else if(tempString.contains("virtualMachineNumber")){
                 	String mStr = tempString.substring(tempString.indexOf("=")+1, tempString.length()).trim();
@@ -97,20 +90,6 @@ public class WorkflowMDP {
                 			break;
                 		}
                 	}
-                }
-                else if(tempString.contains("componentDependency")){
-                	String[] temp = tempString.trim().split(":");
-                	String[] dependencies = temp[1].trim().split(",");
-                	for(int i=0;i<dependencies.length;i++){
-                		String[] depend = dependencies[i].trim().split("-");
-                		int former = Integer.parseInt(depend[0]);
-                		components.get(former-1).addChildren(depend[1]);
-                	}
-                }
-                else if(tempString.contains("feature")){
-                	String[] temp = tempString.trim().split("=");
-                	featureList.add(temp[1].trim());
-                	
                 }
                 else{
                 	
@@ -190,11 +169,10 @@ public class WorkflowMDP {
 	    				 if(CostErrTmp1 > CostErrTmp2) CostErrTmp2 = CostErrTmp1; 
 
 	    			 }
-	    			
+	    			 System.out.printf("0"+childId+"\t");		
 	    			
 	    		}
-	    		
-	    				
+	    		 System.out.printf("/////"+"\n");		
 	    	}
 	    	
 	    	        if(CostErrTmp2 < CostErr) break;
