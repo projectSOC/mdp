@@ -25,7 +25,7 @@ public class STATE {
 		
 		int mod_val = 0;
 		
-		int no_zero_num; //用于记录该状态中，已被分配过的任务的数量，该数量 == n时，就是所有任务已经被分配，代表了终止状态。
+		int no_zero_num; //鐢ㄤ簬璁板綍璇ョ姸鎬佷腑锛屽凡琚垎閰嶈繃鐨勪换鍔＄殑鏁伴噺锛岃鏁伴噺 == n鏃讹紝灏辨槸鎵�湁浠诲姟宸茬粡琚垎閰嶏紝浠ｈ〃浜嗙粓姝㈢姸鎬併�
 		
 		for(int i = 0; i < S_total_num ; i++)
 		{
@@ -37,7 +37,7 @@ public class STATE {
 			for(int j = n -1 ; j >= 0; j--)
 			{
 				
-				mod_val = mod % (m + 1);//有m个VM
+				mod_val = mod % (m + 1);//鏈塵涓猇M
 				
 				if(mod_val != 0)
 				{	
@@ -174,6 +174,17 @@ public class STATE {
 				System.out.println("Trans :"+"compnent "+sta_node.trans[0]+" -> Vitural Machine "+sta_node.trans[1]+"\n");
 			}
 		}
+	}
+	
+	public void showState(int m, int[] bst_data)
+	{
+		for(int i = 0; i < m+1 ; i++){
+			STATE_NODE sta_node = getStateNodeById(bst_data[i]);
+			System.out.printf("State "+(bst_data[i]+1));
+			sta_node.mat.MatShow();
+			System.out.printf("\n");
+    		
+    	}
 	}
 	
 	public STATE_NODE getStartStateNode()
