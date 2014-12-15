@@ -1,0 +1,26 @@
+﻿
+[Size]
+rows = 3
+cols = 4
+
+[Transition model]
+"((*,*), FORWARD)" = 0.8
+"((*,*), LEFT)" = 0.1
+"((*,*), RIGHT)" = 0.1
+#"(1 , 1), UP, (2, 1)" = 0.8
+
+[Rewards]
+(*,*) = -0.04
+#(*,*) = -0.01
+(3,4) = 1
+(2,4) = -1
+
+[Holes]
+1 = (2,2)
+
+[Discount factor]
+gamma =1 
+
+[Terminate states]
+1 = (3,4)
+2 = (2,4)

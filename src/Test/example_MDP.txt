@@ -1,0 +1,20 @@
+
+[ComponentNumber]
+componentNumber = 3
+
+[VirtualMachineNumber]
+virtualMachineNumber = 2
+
+[Deadline]
+deadline = 10
+
+[VirtualMachine1]
+dollarCost = 7
+time = 2
+reliability = 0.9
+
+[VirtualMachine2]
+dollarCost = 7
+time = 1
+reliability = 0.9
+
