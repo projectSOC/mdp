@@ -51,7 +51,7 @@ public class STATE {
 			if(no_zero_num == n)
 			{
 				st_node.setCost(0);
-				
+				st_node.setTimeCost(0);
 				st_node.terminal = true;
 			}
 			
@@ -136,7 +136,7 @@ public class STATE {
 			System.out.println("\nid : "+(i+1));
 			list.get(i).mat.MatShow();
 			System.out.println("\ncost: "+list.get(i).cost);
-			
+			System.out.println("\ntime cost: "+list.get(i).getTimeCost());
 			
 			
 		}
@@ -150,7 +150,7 @@ public class STATE {
 		{
 		   
 			System.out.println(sta_node.getCost());
-		
+			System.out.println(sta_node.getTimeCost());
 		}
 	}
 	
@@ -177,7 +177,7 @@ public class STATE {
 		
 		STATE_NODE sta_node_start = getStartStateNode();
 		double total_cost = sta_node_start.getCost();
-		
+		double totalTimeCost = sta_node_start.getTimeCost();
 		for(STATE_NODE sta_node = getStartStateNode(); sta_node != null;sta_node = getNextStateNode())
 		{
 			//System.out.print("State :" + i);
@@ -189,6 +189,7 @@ public class STATE {
 			if(sta_node.terminal)
 			{
 				System.out.println("Cost :"+total_cost);
+				System.out.println("Time : "+totalTimeCost);
 				sta_node.mat.MatShow();
 				sta_node.mat.MatShowDescribe();
 				System.out.println("\n");

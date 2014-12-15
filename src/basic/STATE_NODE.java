@@ -9,6 +9,7 @@ public class STATE_NODE {
 
 	Mat mat;
 	double cost;
+	double timeCost;
 	List <Integer>  childrenList; //save the state of children state
 	List <int []>  childrenDifList;
 	
@@ -29,6 +30,7 @@ public class STATE_NODE {
 		mat= new Mat(n,m,new int[m]);
 		mat.MatClear();
 		cost = WorkflowMDP.INF;
+		timeCost = WorkflowMDP.INF;
 		
 		childrenList = new ArrayList();
 		childrenDifList = new ArrayList();
@@ -48,6 +50,16 @@ public class STATE_NODE {
 	{
 		
 		return cost;
+	}
+	
+	public void setTimeCost(double timeCost)
+	{
+		this.timeCost = timeCost;
+	}
+	
+	public double getTimeCost()
+	{
+		return timeCost;
 	}
 	
 	void addNestStateNodeById(int id,int[] dif)

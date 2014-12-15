@@ -32,6 +32,7 @@ public class WorkflowMDP {
     static int deadline;
     static int dollarCost[];
     static int time[];
+    static int MODE;
     static double reliability[]; //Reliability of Virtual Machine, stands for p(s|a , s')
     static ArrayList<Component> components = new ArrayList<Component>(); //Dependency of components
     static ArrayList<String> featureList = new ArrayList<String>();
@@ -112,6 +113,12 @@ public class WorkflowMDP {
                 	featureList.add(temp[1].trim());
                 	
                 }
+                else if(tempString.contains("mode"))
+                {
+                	String[] temp = tempString.trim().split("=");
+                	MODE = Integer.parseInt(temp[1].trim());
+                	System.out.println("MODE = "+MODE);
+                }
                 else{
                 	
                 }
@@ -135,7 +142,7 @@ public class WorkflowMDP {
     	double reward = 1;
         
     	Mat A = new Mat(n,m,new int[m]);//Action
-    	Mat T = new Mat(n,m,time);//Execution time 	
+    	Mat TimeCost = new Mat(n,m,time);//Execution time 	
     	Mat COST = new Mat(n,m,dollarCost);//Dollar Cost 把哪个component分配到VM
     	
  	
@@ -148,12 +155,14 @@ public class WorkflowMDP {
     	
     
     	final double CostErr = 1e-5;
-    	
+    	int cnt = 0;
     	while(true)
     	{
+    		cnt++;
     		double CostErrTmp1 = 0;
     		double CostErrTmp2 = 0;
-    		
+    		double TimeCostErrTmp1 = 0;
+    		double TimeCostErrTmp2 = 0;
 	    	for(sta_node = st.getStartStateNode(); sta_node != null;sta_node = st.getNextStateNode())
 	    	{
 	    		
@@ -161,46 +170,69 @@ public class WorkflowMDP {
 	    		if(sta_node.terminal == true) continue;
 	    		
 	    		double minCost = sta_node.getCost();
-	    		
+	    		double minTimeCost = sta_node.getTimeCost();
+	    		//System.out.println("c+t: " + minCost + " , " + minTimeCost);
 	    		double minCostTmp = 0;
+	    		double minTimeCostTmp = 0;
 	    		
 	    		int[] minCost_child_dif = {-1,-1};
 	    		
 	    		
 	    		for(int childId = sta_node.getStartChildNodeId() ; childId != -1 ; childId = sta_node.getNextChildNodeId())
-	    			
 	    		{
 	    			 int dif[] = sta_node.getStartChildDif();
 	    			
 	    			 minCostTmp =  (COST.get(dif[0], dif[1]) +st.getStateNodeById(childId).getCost())*reliability[dif[1]];
 	    			 
 	    			 minCostTmp += (1 - reliability[dif[1]] )*(minCost+ reward);
-	    				    			
-	    			 if(minCostTmp < minCost)
+	    			 
+	    			 minTimeCostTmp = (TimeCost.get(dif[0], dif[1]) + st.getStateNodeById(childId).getTimeCost())*reliability[dif[1]];
+	    			 //System.out.println("@@@"+minCostTmp+"###"+minTimeCostTmp);
+	    			 minTimeCostTmp += (1 - reliability[dif[1]] )*(minTimeCost+reward);
+	    			 //System.out.println("@@"+minCostTmp+"##"+minTimeCostTmp);
+	    			 if(minCostTmp + minTimeCostTmp < minCost + minTimeCost)
 	    			 {
 	    				 CostErrTmp1 = Math.abs(minCost - minCostTmp);
-	    				 
 	    				 minCost = minCostTmp;
+	    				 
+	    				 TimeCostErrTmp1 = Math.abs(minTimeCost - minTimeCostTmp);
+	    				 minTimeCost = minTimeCostTmp;
 	    				 
 	    				 minCost_child_dif = dif;
 	    				 
 	    				 sta_node.setCost(minCost);
+	    				 sta_node.setTimeCost(minTimeCost);
 	    				 sta_node.setTrans(minCost_child_dif);
 	    				 
 	    				 if(CostErrTmp1 > CostErrTmp2) CostErrTmp2 = CostErrTmp1; 
-
+	    				 if(TimeCostErrTmp1 > TimeCostErrTmp2)
+	    					 TimeCostErrTmp2 = TimeCostErrTmp1;
 	    			 }
-	    			
-	    			
 	    		}
-	    		
-	    				
 	    	}
 	    	
-	    	        if(CostErrTmp2 < CostErr) break;
+	    	if(MODE == 1)
+	    	{
+	    		if(st.getStartStateNode().getTimeCost() < deadline && CostErrTmp2 < CostErr)
+	    			break;
+	    	}
+	    	if(MODE == 2)
+	    	{
+	    		if(CostErrTmp2 < CostErr && TimeCostErrTmp2 < CostErr)
+	    		{
+	    			System.out.println("!!!!!"+cnt);
+	    			System.out.println("@@@@"+CostErrTmp2);
+	    			System.out.println("###"+TimeCostErrTmp2);
+	    			break;
+	    		}
+	    			
+	    	}
+	    	if(MODE == 3)
+	    	{
+	    		if(TimeCostErrTmp2 < CostErr)
+	    			break;
+	    	}
     	}
-    	
-    	
     	st.showResult();
     
     }
