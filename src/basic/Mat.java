@@ -32,7 +32,11 @@ public class Mat {
 			}
 	}
 	
+<<<<<<< HEAD
 	void MatShow()//show the matrix
+=======
+	public void MatShow()//show the matrix
+>>>>>>> edf20257e35a66fa476e94f1b8fd678f194e2f0b
 	{
 		for(i = 0; i < col; i++)
 		{

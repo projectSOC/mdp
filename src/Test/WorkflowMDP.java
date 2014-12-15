@@ -32,7 +32,9 @@ public class WorkflowMDP {
     static int deadline;
     static int dollarCost[];
     static int time[];
+
     static int MODE;
+
     static double reliability[]; //Reliability of Virtual Machine, stands for p(s|a , s')
     static ArrayList<Component> components = new ArrayList<Component>(); //Dependency of components
     static ArrayList<String> featureList = new ArrayList<String>();
@@ -99,6 +101,20 @@ public class WorkflowMDP {
                 		}
                 	}
                 }
+                
+                //components information
+                else if(tempString.contains("componentId")){
+                    int tempVMId = Integer.parseInt(tempString.split("=")[1].trim());
+                    tempString = reader.readLine();
+                    if(tempString == null || tempString.length() <= 1){
+                        System.out.println("error input file");
+                        System.exit(-1);
+                    }else{
+                        int tempComputeUnit = Integer.parseInt(tempString.split("=")[1].trim());
+                        components.get(tempVMId - 1).setUnit(tempComputeUnit);
+                    }
+                }
+                
                 else if(tempString.contains("componentDependency")){
                 	String[] temp = tempString.trim().split(":");
                 	String[] dependencies = temp[1].trim().split(",");
@@ -142,10 +158,12 @@ public class WorkflowMDP {
     	double reward = 1;
         
     	Mat A = new Mat(n,m,new int[m]);//Action
+
     	Mat TimeCost = new Mat(n,m,time);//Execution time 	
     	Mat COST = new Mat(n,m,dollarCost);//Dollar Cost 把哪个component分配到VM
     	
- 	
+    	 	
+
     	boolean Task[] = new boolean[n];
     	
     	STATE  st = new STATE(n,m);
@@ -155,6 +173,7 @@ public class WorkflowMDP {
     	
     
     	final double CostErr = 1e-5;
+
     	int cnt = 0;
     	while(true)
     	{
@@ -163,22 +182,24 @@ public class WorkflowMDP {
     		double CostErrTmp2 = 0;
     		double TimeCostErrTmp1 = 0;
     		double TimeCostErrTmp2 = 0;
+    	
 	    	for(sta_node = st.getStartStateNode(); sta_node != null;sta_node = st.getNextStateNode())
 	    	{
-	    		
-    		
 	    		if(sta_node.terminal == true) continue;
 	    		
 	    		double minCost = sta_node.getCost();
+
 	    		double minTimeCost = sta_node.getTimeCost();
 	    		//System.out.println("c+t: " + minCost + " , " + minTimeCost);
 	    		double minCostTmp = 0;
 	    		double minTimeCostTmp = 0;
+
 	    		
 	    		int[] minCost_child_dif = {-1,-1};
 	    		
 	    		
 	    		for(int childId = sta_node.getStartChildNodeId() ; childId != -1 ; childId = sta_node.getNextChildNodeId())
+
 	    		{
 	    			 int dif[] = sta_node.getStartChildDif();
 	    			
@@ -201,6 +222,7 @@ public class WorkflowMDP {
 	    				 minCost_child_dif = dif;
 	    				 
 	    				 sta_node.setCost(minCost);
+
 	    				 sta_node.setTimeCost(minTimeCost);
 	    				 sta_node.setTrans(minCost_child_dif);
 	    				 
@@ -233,6 +255,7 @@ public class WorkflowMDP {
 	    			break;
 	    	}
     	}
+
     	st.showResult();
     
     }
