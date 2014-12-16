@@ -1,9 +1,9 @@
 
 [ComponentNumber]
-componentNumber = 3
+componentNumber = 5
 
 [VirtualMachineNumber]
-virtualMachineNumber = 2
+virtualMachineNumber = 3
 
 [Deadline]
 deadline = 10
@@ -18,6 +18,11 @@ dollarCost = 7
 time = 1
 reliability = 0.9
 
+[VirtualMachine3]
+dollarCost = 5
+time = 1
+reliability = 0.9
+
 [Component1]
 componentId = 1
 computeUnit = 3
@@ -29,6 +34,17 @@ computeUnit = 1
 [Component3]
 componentId = 3
 computeUnit = 5
+
+[Component4]
+componentId = 4
+computeUnit = 2
+
+[Component5]
+componentId = 5
+computeUnit = 3
+
+[ComponentDependency]
+componentDependency: 1-2,1-3,2-4,3-5,4-5
 
 [Features]
 feature1 = Dollar

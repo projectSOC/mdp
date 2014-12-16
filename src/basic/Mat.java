@@ -32,11 +32,7 @@ public class Mat {
 			}
 	}
 	
-<<<<<<< HEAD
-	void MatShow()//show the matrix
-=======
 	public void MatShow()//show the matrix
->>>>>>> edf20257e35a66fa476e94f1b8fd678f194e2f0b
 	{
 		for(i = 0; i < col; i++)
 		{
@@ -59,7 +55,7 @@ public class Mat {
 	}
 	
 	
-	void set(int row_in,int col_in,int val)
+	public void set(int row_in,int col_in,int val)
 	{
 		
 		mat[col_in][row_in] = val;

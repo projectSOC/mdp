@@ -9,11 +9,7 @@ virtualMachineNumber = 2
 deadline = 10
 
 [VirtualMachine1]
-<<<<<<< HEAD
-dollarCost = 7
-=======
 dollarCost = 6
->>>>>>> edf20257e35a66fa476e94f1b8fd678f194e2f0b
 time = 2
 reliability = 0.9
 
@@ -22,8 +18,6 @@ dollarCost = 7
 time = 1
 reliability = 0.9
 
-<<<<<<< HEAD
-=======
 [Component1]
 componentId = 1
 computeUnit = 3
@@ -36,17 +30,9 @@ computeUnit = 1
 componentId = 3
 computeUnit = 5
 
->>>>>>> edf20257e35a66fa476e94f1b8fd678f194e2f0b
-[ComponentDependency]
-componentDependency: 1-2,1-3
-
 [Features]
 feature1 = Dollar
-<<<<<<< HEAD
 feature2 = Time
 
 [Mode]
 mode = 3
-=======
-feature2 = Time
->>>>>>> edf20257e35a66fa476e94f1b8fd678f194e2f0b

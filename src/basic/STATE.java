@@ -16,7 +16,6 @@ public class STATE {
 		n = n_in;
 		m = m_in;
 		
-		
 		S_total_num = (int) Math.pow(m+1, n);
 		
 		state_node_now = 0;
@@ -34,7 +33,7 @@ public class STATE {
 			st_node = new STATE_NODE(n,m);
 			
 			no_zero_num = 0;
-			for(int j = n -1 ; j >= 0; j--)
+			for(int j = n-1 ; j >= 0; j--)
 			{
 				
 				mod_val = mod % (m + 1);//有m个VM

@@ -28,6 +28,7 @@ public class WorkflowMDP {
 	
     MarkovDecisionProcess mdp;
     static int n; //number of components
+    static int u; //number of units
     static int m; //number of virtual machine
     static int deadline;
     static int dollarCost[];
@@ -58,6 +59,7 @@ public class WorkflowMDP {
                 if(tempString.contains("componentNumber")){
                 	String nStr = tempString.substring(tempString.indexOf("=")+1, tempString.length()).trim();
                 	n = Integer.parseInt(nStr);
+                    u = Integer.parseInt(nStr);
                 	for(int i=0; i<n;i++){
                 		Component componenti = new Component(String.valueOf(i+1));
                 		components.add(componenti);
@@ -166,7 +168,7 @@ public class WorkflowMDP {
 
     	boolean Task[] = new boolean[n];
     	
-    	STATE  st = new STATE(n,m);
+    	STATE  st = new STATE(u,m);
 
     	
     	STATE_NODE sta_node;
@@ -203,7 +205,7 @@ public class WorkflowMDP {
 	    		{
 	    			 int dif[] = sta_node.getStartChildDif();
 	    			
-	    			 minCostTmp =  (COST.get(dif[0], dif[1]) +st.getStateNodeById(childId).getCost())*reliability[dif[1]];
+	    			 minCostTmp =  (COST.get(dif[0], dif[1])*components.get(dif[1]).getUnit() +st.getStateNodeById(childId).getCost())*reliability[dif[1]];
 	    			 
 	    			 minCostTmp += (1 - reliability[dif[1]] )*(minCost+ reward);
 	    			 
