@@ -213,6 +213,8 @@ public class STATE {
 			System.out.printf("State "+(bst_data[i]+1));
 			sta_node.mat.MatShow();
 			System.out.printf("\n");
+			sta_node.mat.MatShowDescribe();
+			System.out.printf("\n");
     		
     	}
 	}
