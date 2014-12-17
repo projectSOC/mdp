@@ -9,11 +9,15 @@ public class STATE_NODE {
 
 	Mat mat;
 	double cost;
-	List <Integer>  childrenList; //瀛樻斁浜嗗瓙鐘舵�鐨勭紪鍙�	
-	List <int []>  childrenDifList;//瀛愮姸鎬佺紪鍙�	
+
+	double timeCost;
+
+	List <Integer>  childrenList; //save the state of children state
+	List <int []>  childrenDifList;
 	
-	int NextStateNodeNum; //鎵�湁鍙兘鐨勪笅涓�鐨勪釜鏁�possible鐨勫瓙鐘舵�
-	int NextStateNodeNow; //褰撳勾閬嶅巻鍒扮殑瀛愮姸鎬佺殑缂栧彿
+	
+	int NextStateNodeNum; //number of all possible next states
+	int NextStateNodeNow; //current children state that have been traversed
 	public boolean terminal;
 	
 	int trans[] = new int[2];
@@ -28,6 +32,8 @@ public class STATE_NODE {
 		mat= new Mat(n,m,new int[m]);
 		mat.MatClear();
 		cost = WorkflowMDP.INF;
+
+		timeCost = WorkflowMDP.INF;
 		
 		childrenList = new ArrayList();
 		childrenDifList = new ArrayList();
@@ -49,9 +55,20 @@ public class STATE_NODE {
 		return cost;
 	}
 	
+
+	public void setTimeCost(double timeCost)
+	{
+		this.timeCost = timeCost;
+	}
+	
+	public double getTimeCost()
+	{
+		return timeCost;
+	}
+	
 	void addNestStateNodeById(int id,int[] dif)
 	{
-		//dif0 component dif1 vm action action鏄皢浠诲姟dif[0]鍒嗛厤鍒癡M dif[1]
+		//dif0 component dif1 vm action action是将任务dif[0]分配到VM dif[1]
 		childrenList.add(id);
 		childrenDifList.add(dif);
 		

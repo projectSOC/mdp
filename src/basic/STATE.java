@@ -16,7 +16,6 @@ public class STATE {
 		n = n_in;
 		m = m_in;
 		
-		
 		S_total_num = (int) Math.pow(m+1, n);
 		
 		state_node_now = 0;
@@ -34,7 +33,7 @@ public class STATE {
 			st_node = new STATE_NODE(n,m);
 			
 			no_zero_num = 0;
-			for(int j = n -1 ; j >= 0; j--)
+			for(int j = n-1 ; j >= 0; j--)
 			{
 				
 				mod_val = mod % (m + 1);//鏈塵涓猇M
@@ -51,7 +50,9 @@ public class STATE {
 			if(no_zero_num == n)
 			{
 				st_node.setCost(0);
-				
+
+				st_node.setTimeCost(0);
+
 				st_node.terminal = true;
 			}
 			
@@ -136,8 +137,8 @@ public class STATE {
 			System.out.println("\nid : "+(i+1));
 			list.get(i).mat.MatShow();
 			System.out.println("\ncost: "+list.get(i).cost);
-			
-			
+
+			System.out.println("\ntime cost: "+list.get(i).getTimeCost());		
 			
 		}
 	
@@ -150,29 +151,58 @@ public class STATE {
 		{
 		   
 			System.out.println(sta_node.getCost());
-		
+
+			System.out.println(sta_node.getTimeCost());
 		}
 	}
 	
 	public void showResult()
 	{
 		int i = 1;
+//		for(STATE_NODE sta_node = getStartStateNode(); sta_node != null;sta_node = getNextStateNode())
+//		{
+//			System.out.print("State :" + i);
+//			i++;
+//			sta_node.mat.MatShow();
+//			
+//			System.out.println("\nCost :"+sta_node.getCost());
+//			
+//			if(sta_node.terminal)
+//			{
+//				System.out.println("all finished\n");
+//			}
+//			else
+//			{
+//				System.out.println("Trans :"+"compnent "+sta_node.trans[0]+" -> Vitural Machine "+sta_node.trans[1]+"\n");
+//			}
+//		}
+		
+		STATE_NODE sta_node_start = getStartStateNode();
+		double total_cost = sta_node_start.getCost();
+
+		double totalTimeCost = sta_node_start.getTimeCost();
 		for(STATE_NODE sta_node = getStartStateNode(); sta_node != null;sta_node = getNextStateNode())
 		{
-			System.out.print("State :" + i);
-			i++;
-			sta_node.mat.MatShow();
+			//System.out.print("State :" + i);
+			//i++;
+			//sta_node.mat.MatShow();
 			
-			System.out.println("\nCost :"+sta_node.getCost());
+			//System.out.println("\nCost :"+sta_node.getCost());
 			
 			if(sta_node.terminal)
 			{
-				System.out.println("all finished\n");
+				System.out.println("Cost :"+total_cost);
+
+				System.out.println("Time : "+totalTimeCost);
+
+				sta_node.mat.MatShow();
+				sta_node.mat.MatShowDescribe();
+				System.out.println("\n");
 			}
-			else
-			{
-				System.out.println("Trans :"+"compnent "+sta_node.trans[0]+" -> Vitural Machine "+sta_node.trans[1]+"\n");
-			}
+//			else
+//			{
+//				System.out.println("Trans :"+"compnent "+sta_node.trans[0]+" -> Vitural Machine "+sta_node.trans[1]+"\n");
+//			}
 		}
 	}
 	

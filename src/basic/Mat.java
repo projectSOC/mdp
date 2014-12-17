@@ -32,7 +32,7 @@ public class Mat {
 			}
 	}
 	
-	void MatShow()//show the matrix
+	public void MatShow()//show the matrix
 	{
 		for(i = 0; i < col; i++)
 		{
@@ -55,13 +55,27 @@ public class Mat {
 	}
 	
 	
-	void set(int row_in,int col_in,int val)
+	public void set(int row_in,int col_in,int val)
 	{
 		
 		mat[col_in][row_in] = val;
 		
 	}
-	
+	void MatShowDescribe()//describe the matrix
+	{
+		for(i = 0; i < col; i++)
+		{
+			for(j = 0 ; j < row ; j++)
+			{
+				if(mat[i][j]==1){
+					System.out.println("component "+j+" -> Virtual Machine "+i);
+				}
+				
+			}
+			
+		}
+		
+	}
 
 
 }

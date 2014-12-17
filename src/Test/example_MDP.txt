@@ -9,7 +9,7 @@ virtualMachineNumber = 2
 deadline = 10
 
 [VirtualMachine1]
-dollarCost = 9
+dollarCost = 6
 time = 2
 reliability = 0.9
 
@@ -18,3 +18,21 @@ dollarCost = 8
 time = 1
 reliability = 0.9
 
+[Component1]
+componentId = 1
+computeUnit = 3
+
+[Component2]
+componentId = 2
+computeUnit = 1
+
+[Component3]
+componentId = 3
+computeUnit = 5
+
+[Features]
+feature1 = Dollar
+feature2 = Time
+
+[Mode]
+mode = 3
