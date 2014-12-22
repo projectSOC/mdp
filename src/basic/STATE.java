@@ -129,7 +129,7 @@ public class STATE {
 		
 	}
 	
-	void show()
+	public void show()
 	{
 		
 		for(int i = 0; i < S_total_num; i++)
@@ -159,51 +159,73 @@ public class STATE {
 	public void showResult()
 	{
 		int i = 1;
-//		for(STATE_NODE sta_node = getStartStateNode(); sta_node != null;sta_node = getNextStateNode())
-//		{
-//			System.out.print("State :" + i);
-//			i++;
-//			sta_node.mat.MatShow();
-//			
-//			System.out.println("\nCost :"+sta_node.getCost());
-//			
-//			if(sta_node.terminal)
-//			{
-//				System.out.println("all finished\n");
-//			}
-//			else
-//			{
-//				System.out.println("Trans :"+"compnent "+sta_node.trans[0]+" -> Vitural Machine "+sta_node.trans[1]+"\n");
-//			}
-//		}
-		
-		STATE_NODE sta_node_start = getStartStateNode();
-		double total_cost = sta_node_start.getCost();
-
-		double totalTimeCost = sta_node_start.getTimeCost();
 		for(STATE_NODE sta_node = getStartStateNode(); sta_node != null;sta_node = getNextStateNode())
 		{
-			//System.out.print("State :" + i);
-			//i++;
-			//sta_node.mat.MatShow();
+			System.out.print("State :" + i);
+			i++;
+			sta_node.mat.MatShow();
 			
-			//System.out.println("\nCost :"+sta_node.getCost());
+			System.out.println("\nCost :"+sta_node.getCost());
 			
 			if(sta_node.terminal)
 			{
-				System.out.println("Cost :"+total_cost);
-
-				System.out.println("Time : "+totalTimeCost);
-
-				sta_node.mat.MatShow();
-				sta_node.mat.MatShowDescribe();
-				System.out.println("\n");
+				System.out.println("all finished\n");
 			}
-//			else
-//			{
-//				System.out.println("Trans :"+"compnent "+sta_node.trans[0]+" -> Vitural Machine "+sta_node.trans[1]+"\n");
-//			}
+			else
+			{
+				System.out.println("Trans :"+"compnent "+sta_node.trans[0]+" -> Vitural Machine "+sta_node.trans[1]+"\n");
+			}
+			
 		}
+		
+	}
+	
+	STATE_NODE findNextStep(STATE_NODE sta_node){
+		
+		STATE_NODE snode = new STATE_NODE(n, m);
+		for(int i = 0; i < m; i++)
+		{
+			for(int j = 0 ; j < n ; j++)
+			{
+				int value = sta_node.mat.get(j, i);
+				snode.mat.set(j, i, value);
+				
+			}
+			
+		}
+		snode.mat.set(sta_node.trans[0], sta_node.trans[1], 1);
+		STATE_NODE next = findNextState_node(snode.mat);
+		
+		return next;
+		
+	}
+	STATE_NODE findNextState_node(Mat mat){
+		for(STATE_NODE node = getStartStateNode(); node != null;node = getNextStateNode()){
+			if(node.mat.match(mat)==1){
+				//System.out.println("\nTrans :"+"compnent "+sta_node.trans[0]+" -> Vitural Machine "+sta_node.trans[1]+"\n");
+				return node;
+				
+			}
+		}
+		return null;
+	}
+	public void chooseBestWay()
+	{
+		System.out.println("Best Way:");
+		STATE_NODE sta_node = getStartStateNode();
+		System.out.println("Cost :"+sta_node.getCost());
+		sta_node.mat.MatShow();
+		System.out.println("\nTrans :"+"compnent "+sta_node.trans[0]+" -> Vitural Machine "+sta_node.trans[1]+"\n");
+			
+		while(true){
+			if(sta_node.terminal){
+				break;
+			}
+			sta_node = findNextStep(sta_node);
+			sta_node.mat.MatShow();
+			System.out.println("\nTrans :"+"compnent "+sta_node.trans[0]+" -> Vitural Machine "+sta_node.trans[1]+"\n");
+		}
+		
 	}
 	
 	public STATE_NODE getStartStateNode()

@@ -7,8 +7,8 @@ import Test.WorkflowMDP;
 
 public class STATE_NODE {
 
-	Mat mat;
-	double cost;
+	public Mat mat;
+	double cost;//cost needed for next allocation 
 
 	double timeCost;
 

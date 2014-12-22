@@ -184,13 +184,14 @@ public class WorkflowMDP {
     		double CostErrTmp2 = 0;
     		double TimeCostErrTmp1 = 0;
     		double TimeCostErrTmp2 = 0;
-    	
+    		
+    		
 	    	for(sta_node = st.getStartStateNode(); sta_node != null;sta_node = st.getNextStateNode())
 	    	{
 	    		if(sta_node.terminal == true) continue;
 	    		
 	    		double minCost = sta_node.getCost();
-
+	    		
 	    		double minTimeCost = sta_node.getTimeCost();
 	    		//System.out.println("c+t: " + minCost + " , " + minTimeCost);
 	    		double minCostTmp = 0;
@@ -232,6 +233,7 @@ public class WorkflowMDP {
 	    				 if(TimeCostErrTmp1 > TimeCostErrTmp2)
 	    					 TimeCostErrTmp2 = TimeCostErrTmp1;
 	    			 }
+	    			
 	    		}
 	    	}
 	    	
@@ -258,7 +260,8 @@ public class WorkflowMDP {
 	    	}
     	}
 
-    	st.showResult();
+    	//st.showResult();
+    	st.chooseBestWay();
     
     }
 

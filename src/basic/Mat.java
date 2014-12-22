@@ -61,6 +61,23 @@ public class Mat {
 		mat[col_in][row_in] = val;
 		
 	}
+	public int match(Mat mat_needToMatch)
+	{
+		
+		for(i = 0; i < col; i++)
+		{
+			for(j = 0 ; j < row ; j++)
+			{
+				if(mat[i][j]!= mat_needToMatch.get(j, i)){
+					return 0;
+				}
+				
+			}
+			
+		}
+		return 1;
+		
+	}
 	void MatShowDescribe()//describe the matrix
 	{
 		for(i = 0; i < col; i++)
